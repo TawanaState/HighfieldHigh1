@@ -1,0 +1,492 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#fff">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FriendlyEats">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Events and Friends</title>
+</head>
+
+<body>
+    <div>
+        <h3 class="text-muted">
+
+            Campus Compass
+        </h3>
+        <ul class="nav nav-tabs d-inline-flex" role="tablist">
+            <li class="nav-item transit" role="presentation"><a class="nav-link active transit" role="tab"
+                    data-bs-toggle="tab" href="#tab-1">From You</a></li>
+            <li class="nav-item transit" role="presentation"><a class="nav-link transit" role="tab" data-bs-toggle="tab"
+                    href="#tab-2">Friends</a></li>
+            <li class="nav-item transit" role="presentation"><a class="nav-link transit" role="tab" data-bs-toggle="tab"
+                    href="#tab-3">Events</a></li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" role="tabpanel" id="tab-1">
+                <input type="search" placeholder="Search here..." class="form-control">
+                <ul class="list my-events">
+                    
+                </ul>
+            </div>
+
+
+            <div class="tab-pane" role="tabpanel" id="tab-2">
+                <input type="search" placeholder="Search here..." class="form-control">
+                <ul class="list friends">
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" role="tabpanel" id="tab-3">
+                <input type="search" placeholder="Search here..." class="form-control">
+                <ul class="list events">
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="btn btn-add rounded-circle bg-info position-absolute d-flex" onclick="openPrompt();">
+        <i class="bi bi-plus-lg text-white"></i>
+    </button>
+
+    <div class="prompt d-none">
+        <p>You have just deleted the whole file, so theres no going back bro. </p>
+        <p><button class="btn">Undo</button></p>
+    </div>
+
+    <div class="prompt-box d-none">
+        <form action="" onsubmit="savePrompt(event);">
+            <input class="d-none" type="text" id="event_id">
+            <input class="form-control" id="event_name" required placeholder="Name" type="text">
+            <textarea name="" id="event_description" required placeholder="Description" class="form-control mb-3"></textarea>
+            <div class="images mb-3">
+
+            </div>
+
+            <input type="file" accept="image/*" class="d-none" multiple name="" id="image_input">
+            <button type="button" onclick="document.querySelector('input#image_input').click();"
+                class="btn text-white border-1 border-secondary">Add Images</button><br>
+            <span class="text-muted fs-6">Double click the image to delete it. </span>
+
+            <h5 class="text-white fs-5">Start Time</h5>
+            <input type="date" name="" id="starttime_date" required class="form-control">
+            <input type="time" id="starttime_time" required class="form-control">
+
+            <h5 class="text-white fs-5">End Time</h5>
+            <input type="date" required id="endtime_date" class="form-control">
+            <input type="time" required id="endtime_time" class="form-control mb-4">
+
+            <input class="form-control d-none" value="31.05311" placeholder="Longitude" id="my_lng" type="text">
+            <input class="form-control d-none" value="-17.78521" placeholder="Latitude" id="my_lat" type="text">
+            <div id="myMap">
+
+            </div>
+
+            <button class="btn btn-outline-primary" type="submit">Save</button>
+            <button class="btn btn-outline-warning" type="reset"
+                onclick="document.querySelector('.prompt-box').classList.toggle('d-none');">Close</button>
+        </form>
+        
+    </div>
+    <textarea class="d-none" name="" id="textarea_copy" cols="30" rows="10"></textarea>
+    <script>
+        var map;
+        var midnightCommander = {
+            "version": "1.0",
+            "settings": {
+                "landColor": "#0B334D"
+            },
+            "elements": {
+                "mapElement": {
+                    "labelColor": "#FFFFFF",
+                    "labelOutlineColor": "#000000"
+                },
+                "political": {
+                    "borderStrokeColor": "#144B53",
+                    "borderOutlineColor": "#00000000"
+                },
+                "point": {
+                    "iconColor": "#0C4152",
+                    "fillColor": "#000000",
+                    "strokeColor": "#0C4152"
+                },
+                "transportation": {
+                    "strokeColor": "#000000",
+                    "fillColor": "#000000"
+                },
+                "highway": {
+                    "strokeColor": "#158399",
+                    "fillColor": "#000000"
+                },
+                "controlledAccessHighway": {
+                    "strokeColor": "#158399",
+                    "fillColor": "#000000"
+                },
+                "arterialRoad": {
+                    "strokeColor": "#157399",
+                    "fillColor": "#000000"
+                },
+                "majorRoad": {
+                    "strokeColor": "#157399",
+                    "fillColor": "#000000"
+                },
+                "railway": {
+                    "strokeColor": "#146474",
+                    "fillColor": "#000000"
+                },
+                "structure": {
+                    "fillColor": "#115166"
+                },
+                "water": {
+                    "fillColor": "#021019"
+                },
+                "area": {
+                    "fillColor": "#115166"
+                }
+            }
+        };
+    
+
+        function GetMap() {
+            map = new Microsoft.Maps.Map('#myMap', {
+                center: new Microsoft.Maps.Location(-17.78521, 31.05311),
+                zoom: 19, 
+                //customMapStyle: midnightCommander,
+            });
+
+            let center = map.getCenter();
+            //Add a green pushpin that has dragging enabled and events attached to it.
+            let greenPin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(center.latitude, center.longitude), { color: '#20c997', draggable: true });
+            map.entities.push(greenPin);
+
+            Microsoft.Maps.Events.addHandler(greenPin, 'drag', function (e) { highlight(e); });
+            Microsoft.Maps.Events.addHandler(greenPin, 'dragend', function (e) { highlight(e); });
+            Microsoft.Maps.Events.addHandler(greenPin, 'dragstart', function (e) { highlight(e); });
+
+        }
+        document.querySelector('form').onreset = function (event) {
+            event.target.querySelector('.images').innerHTML = '';
+        }
+
+        function highlight(event) {
+            document.querySelector('input#my_lat').value = event.target.getLocation().latitude;
+            document.querySelector('input#my_lng').value = event.target.getLocation().longitude;
+        }
+    </script>
+    <script src="assets/vendor/jquery-3.6.0.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="assets/js/db.js"></script>
+    
+    <script type='text/javascript'
+        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AvSb9MNVFI9fgxh3S9aCiXzvnmjxwaCY0GGBHnzmTqeHUJVojWodasPjeGIi9VOD'
+        async defer></script>
+
+    <style>
+        .btn-add{
+            bottom: 25px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+        .bi{
+            color:lightslategray;
+        }
+        #myMap {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        ul.nav {
+            width: 100vw;
+        }
+
+        h3 {
+            margin: 25px;
+            margin-bottom: 5px;
+        }
+
+        .nav>li {
+            width: calc(100vw / 3);
+            text-align: center;
+        }
+
+        ul.list {
+            width: 100%;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            max-height: calc(100vh - 110px - 50px);
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        ul.list li:first-child {
+            margin-top: 10px;
+        }
+
+        ul.list>li {
+            padding: 0.3rem;
+            padding-left: 0.7rem;
+            list-style: none;
+            margin: 4px;
+            margin-bottom: 12px;
+            box-shadow: 0 .125rem 0.5rem rgba(0, 0, 0, .075) !important;
+        }
+
+        ul.list>li.edit {
+            padding-right: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
+        li>p {
+            margin: 0px;
+        }
+
+        li.edit>p {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            flex-direction: column;
+        }
+
+        li.edit>p i {
+            margin-inline: 7px;
+        }
+
+        li.edit>p>span:last-child {
+            font-size: x-small;
+            color: gray;
+        }
+
+        li>span {
+            font-size: x-small;
+            color: gray;
+        }
+
+        .nav-link,
+        .nav-item {
+            transition-property: color, border;
+            transition-duration: 0.1s;
+        }
+
+        .nav-link {
+            border: none !important;
+            border-color: none;
+            color: gray;
+            padding-block: 10px;
+            font-weight: 450;
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid var(--bs-info) !important;
+        }
+
+        .tab-pane.active {
+            margin: 0px;
+            padding: 0px;
+            display: flex !important;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+        }
+
+        input,
+        textarea {
+            box-shadow: none !important;
+            width: 90vw !important;
+            margin-top: 10px;
+            box-shadow: 0 .125rem 0.5rem rgba(0, 0, 0, .075) !important;
+            border: 1px solid #bbdefb !important;
+        }
+
+        input:focus,
+        textarea:focus {
+            border: 1px solid #03a9f4 !important;
+        }
+
+        .prompt-box {
+            position: absolute;
+            z-index: 4;
+            top: 0px;
+            left: 0px;
+            display: flex;
+            background-color: #38566e75;
+            margin: 0px;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            color: white;
+        }
+
+        .prompt-box>form {
+            background-color: #262b38;
+            padding: 10px;
+            border-radius: 5px;
+            height: fit-content;
+            max-height: 90vh;
+            overflow-y: scroll;
+            width: 90%;
+            padding-block: 20px;
+            color: white;
+            padding-inline: 20px;
+        }
+
+        form>input,
+        form>textarea {
+            margin-block: 5px;
+            width: 100% !important;
+            background-color: #262b38 !important;
+            color: white !important;
+            border-color: rgba(128, 128, 128, 0.411) !important;
+        }
+    </style>
+
+    <script>
+        
+        on("keyup", ".tab-pane > input[type='search']", (event)=> {
+            try{
+                event.target.parentElement.querySelectorAll('ul > li').forEach((v,k,p)=>{
+                    v.classList.add('d-none')
+                    if(v.innerText.toLowerCase().includes(event.target.value.toLowerCase())){
+                        v.classList.remove('d-none');
+                    }
+                });
+            } catch(e){
+                console.log(e);
+            }
+            
+        }, true)
+
+        document.querySelector('input#image_input').addEventListener('change', showImage);
+
+        function openPrompt(uid = "") {
+            document.querySelector('form').reset();
+            document.querySelector('#event_id').value = uid;
+            if (uid !== "") {
+                let eve = events.filter(val => val.key == uid)[0];
+                select('#event_name').value = eve.data.event_name;
+                select('#event_description').value = eve.data.description;
+
+                select('#starttime_date').value = eve.data.startTime.split(' ')[0];
+                select('#starttime_time').value = eve.data.startTime.split(' ')[1];
+                select('#endtime_date').value = eve.data.endTime.split(' ')[0];
+                select('#endtime_time').value = eve.data.endTime.split(' ')[1];
+
+                select("#my_lng").value = eve.data.location.longitude;
+                select("#my_lat").value = eve.data.location.latitude;
+
+                try{
+                    let loc = new Microsoft.Maps.Location(
+                        eve.data.location.latitude,
+                        eve.data.location.longitude
+                    );
+                    //Center the map on the user's location.
+                    map.setView({ center: loc });
+                }catch(e){
+                    notify(e, 'text-danger');
+                }
+                
+
+                eve.data.images.forEach((v, k, p) => {
+                    let img = document.createElement('img');
+                    img.src = v;
+                    select('.images').appendChild(img);
+                })                
+            }
+            document.querySelector('.prompt-box').classList.toggle('d-none');
+        }
+
+        function shareEvent(key){
+            input = document.getElementById('textarea_copy');
+            let websi = window.location.href;
+            websi = websi.replace('attractions.html', '');
+            websi = websi.replace(window.location.hash, '');
+            input.value = websi + 'index.html#event=' + key;
+            console.log(input.value);
+            input.classList.toggle('d-none');
+            input.select();
+            document.execCommand("copy");
+            input.classList.toggle('d-none');
+            notify('Link has been copied. </br> Now you can share with your friends :)');
+        }
+
+        function savePrompt(eventParam){
+            eventParam.preventDefault();
+            let uid = document.querySelector('#event_id').value;
+            let event_name = select('#event_name').value;
+            let event_description = select('#event_description').value;
+            let startTime = select('#starttime_date').value + " " + select('#starttime_time').value;
+            let endTime = select('#endtime_date').value + " " + select('#endtime_time').value;
+            let location = {
+                latitude : Number(select("#my_lat").value),
+                longitude : Number(select("#my_lng").value)
+            };
+            let images = [];
+            select('.images > img', true).forEach((v,k,p) => {
+                images.push(v.src);
+            });
+
+            if(uid !== "" || uid !== null){
+                updateEvent(uid, {
+                    event_name : event_name, 
+                    description : event_description,
+                    images : images,
+                    startTime : startTime,
+                    endTime : endTime,
+                    location : location,
+                });
+            } else if(uid == "" || uid == null){
+                addEvent({
+                    user_uid : user.uid,
+                    event_name : event_name, 
+                    description : event_description,
+                    images : images,
+                    startTime : startTime,
+                    endTime : endTime,
+                    location : location,
+                });
+            }
+            document.querySelector('.prompt-box').classList.toggle('d-none');
+        }
+
+    </script>
+</body>
+
+</html>

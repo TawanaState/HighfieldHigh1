@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#232528">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Campus Compass">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Chat Bot</title>
+    <title>About Chatbot</title>
+</head>
+<body class="bg-dark">
+
+        <div class="main bg-dark">
+        </div>
+
+        <div class="real text-white">
+            <h3 class="my-3 text-white">AI Chat Bot</h3>
+            <img src="assets/img/icons8_bot_96px_1.png" alt="">
+            <h6 class="text-white-50 fw-light mt-3">About</h6>
+            <p align="justify" class="mx-3">
+                Hi, Im an advanced AI chatbot, with an ability to answer questions according to what i have
+                 been taught. To achieve this goal I use Tensorflow JS from google, and BERT. I hope 
+                 you will enjoy my services :)
+            </p>
+            <h6 class="text-white-50 fw-light mt-3">Features</h6>
+            <p class="features d-flex flex-column">
+                <span>QNA</span>
+                <span>Basic Conversations </span>
+                <span>Notifications</span>
+            </p>
+            <h6 class="text-white-50 fw-light mt-3">DataSources</h6>
+            <p class="features d-flex flex-column">
+                <span>Wikipedia: UZ page</span>
+                <span>UZ students</span>
+            </p>
+            <a href="chat.html" class="btn btn-dark my-3 rounded-pill px-4 py-2 shadow-lg">Go Chat!</a>
+            <h6 class="text-white-50 fw-light mt-2">Developed by : Tawananyasha Mukoriwo</h6>
+        </div>
+    
+    <style>
+        .main{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            filter: blur(10px);
+        }
+        .real{
+            z-index: 2;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-image: linear-gradient(298deg, #517e76, #4b3a5eb8);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: nowrap;
+            height: fit-content;
+        }
+
+        .features span{
+            border-radius: 5px;
+            border: 1px solid gray;
+            padding: 2px 10px;
+            margin-block: 4px;
+            cursor: hand;
+        }
+        body {
+            margin: 0px;
+            padding: 0px;
+            overflow-y: auto;
+        }
+        body > div{
+            height: calc(100vh - 4vh);
+            padding: 10px;
+            width: calc(100vw - 8vw);
+            margin: 2vh 4vw;
+        }
+        .btn-info{
+            color: white;
+        }
+        div.main{
+            width: 100%;
+            background-image: url(assets/img/campus_compass_bg.png);
+            background-position: center;
+            background-size: cover;
+        }
+        @media (min-width : 720px) {
+            body > div.real.text-white > p.mx-3{
+                margin-left: 10rem!important;
+                margin-right: 10rem!important;
+            }
+        }
+    </style>
+</body>
+</html>

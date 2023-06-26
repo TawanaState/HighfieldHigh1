@@ -1,0 +1,112 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#fff">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CampusCompass">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="ad bg-dark"></div>
+    <div class="main">
+        <form action="" onsubmit="formSubmit(event)">
+            <h3>Login</h3>
+            <input type="email" class="form-control" required name="" id="id_email" placeholder="Emaill Address">
+            <input type="password" class="form-control" required name="" id="id_password" placeholder="Password">
+            <p class="text-danger"></p>
+            <button class="btn btn-info">Login</button>
+            <p class="text-muted">Don't have an account? <a href="signup.html">Signup Now</a> </p>
+        </form>
+
+    </div>
+</body>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0px;
+        padding: 0px;
+        height: 100vh;
+    }
+    body > div{
+        height: 100vh;
+        padding: 50px;
+        width: 50vw;
+    }
+    .main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    form{
+        width: 100%;
+    }
+    form > *{
+        margin-block: 10px;
+    }
+    a{
+        text-decoration: none;
+        opacity: 0.7;
+    }
+    .ad{
+        background-image: url(assets/img/campus_compass_bg.png);
+    }
+    .btn-info{
+        color: white;
+    }
+    @media (max-width: 768px) {
+        div.ad{
+            display: none;
+        }
+        div.main{
+            width: 100%;
+            background-image: url(assets/img/campus_compass_bg.png);
+            background-position-x: left;
+        }
+    }
+</style>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/db.js"></script>
+<script>
+    function formSubmit(event){
+        event.preventDefault();
+        let returnval = Login(getVal('#id_email'), getVal('#id_password'));
+        if (returnval !== undefined){
+            select('form p.text-danger').innerText = returnval;
+        }
+    }
+    function getVal(query){
+        return document.querySelector(query).value;
+    }
+    
+</script>
+
+</html>

@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#232528">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Campus Compass">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chat-style.css">
+    <title>Chat Bot</title>
+</head>
+<body class="bg-dark text-white">
+    <div class="dropdown shadow-sm transit" onclick="document.querySelector('.dropdown').classList.remove('active');">
+        <span onclick="clearMsgs(event);">Clear Chats</span>
+        <span onclick="window.location.href = 'chatbot.html'">About Chat Bot</span>
+        <span onclick="window.location.href = 'about.html#contact'">Comment</span>
+    </div>
+
+        <div class="header"> <!--58px height-->
+            <p class="d-flex flex-row">
+                <a href="index.html" class="btn"><i class="bi bi-arrow-left"></i></a>
+                <img style="width:40px;height:40px;" src="assets/img/icons8_bot_96px_1.png" alt="">
+                <a href="chatbot.html" class="btn fs-4 py-0 d-flex flex-column align-items-start"><span class="text-mid">ChatBot</span><span id="chat_state" class="text-smaller text-muted"></span></a>
+            </p>
+
+            <p>
+                <button onclick="document.querySelector('.dropdown').classList.toggle('active');" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+            </p>
+            
+        </div>
+
+
+        <div class="chats">
+        </div>
+
+        <div class="suggestions">
+            
+        </div>
+
+        <div class="footer w-100">
+            <input class="form-control bg-dark btn-outline-dark rounded-pill text-white" placeholder="Message" type="text" name="" id="">
+            <button onclick="FormbtnClick(event)" class="btn shadow-none audio-send"><i class="bi bi-send"></i></button>
+        </div>
+
+        <div class="loader w-100 h-100 bg-dark opacity-50 position-absolute top-0 d-flex flex-column align-items-center justify-content-center">
+            <div class="spinner-border"></div>
+            <span class="my-3">Chat Bot Loading...</span>
+        </div>
+    <script src="assets/vendor/string-similarity.min.js"></script>
+    <script src="assets/js/dexie.min.js"></script>
+    <script src="assets/js/dataset.js"></script>
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chat.js"></script>
+</body>
+
+
+</html>

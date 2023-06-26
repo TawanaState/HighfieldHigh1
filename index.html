@@ -1,0 +1,212 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#fff">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CampusCompass">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Campus Compass</title>
+</head>
+<body>
+    <header class="d-flex flex-row align-center align-items-center justify-content-center my-4 mx-3 mt-5">
+            <i class="bi bi-list" onclick="document.querySelector('nav').classList.add('active');"></i>
+            <input list="Places" value="Highfield 1 High" class="form-control rounded-pill m-0 px-5 shadow-sm" style="padding-block:10px!important;" type="search" placeholder="Search" id="id_search">
+            <i class="bi bi-search"></i>
+    </header>
+    <datalist id="Places">
+        
+    </datalist>
+    <nav class="transit">
+        <button id="btn-close" class="btn btn-close zero-shadow toggle-btn"></button>
+        <img class="rounded-circle my-2" src="assets/img/user icon.png" alt="">
+        <p class="my-2">
+            <i id="broadcast-pin" class="bi bi-share" onclick="shareMine(event);"></i>
+            <i id="broadcast-pin" onclick="notify('Please turn on your location, and allow the website to acces your location. ')" class="bi bi-geo-alt-fill"></i>
+        </p>
+        
+        <h3 id="heading_username" class="mt-2 mb-2">...</h3><hr>
+        <a href="/">Developer</a><hr>
+        <a href="about.html">About App</a><hr>
+        <a href="login.html">Logout</a>
+    </nav>
+    <div id="map">
+    </div>
+
+    <div class="my-cards">
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_gate_60px_2.png)">
+            <div>
+                <div>Entrance</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_book_shelf_100px_2.png)">
+            <div>
+                <div>Library</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_city_hall_60px_1.png)">
+            <div>
+                <div>School Hall</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_sport_52px.png)">
+            <div>
+                <div>Sports Field</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_basketball_field_64px_1.png)">
+            <div>
+                <div>Basketball Field</div>
+            </div>
+        </div>
+
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_user_groups_100px_1.png)">
+            <div>
+                <div>Staff</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_classroom_240px.png)">
+            <div>
+                <div>Lecture Theatre</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_field_52px.png)">
+            <div>
+                <div>Agriculture Field</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_field_52px.png)">
+            <div>
+                <div>Soccer Field</div>
+            </div>
+        </div>
+        <div class="place shadow-none" style="background-image:url(assets/img/places/icons8_toilet_60px.png)">
+            <div>
+                <div>Toilets</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="p-4 mx-2 rounded-3 w-100 bg-white transit">
+            <hr class="transit toggle-btn">
+            <h5 id="LocPin" lng="30.991032" lat="-17.895413">Highfield 1 High</h5>
+            <p class="btns" align="right">
+                <button class="btn btn-info px-2 py-1" onclick="goNow(event)"> <i class="bi bi-geo-alt mx-1 ml-0"></i> Go <i class="mx-1"></i> </button>
+                <button class="btn btn-info px-2 py-2" onclick="shareNow(event)"> <i class="bi bi-share-fill mx-1 ml-0"></i> </button>
+            </p>
+            <textarea class="d-none" name="" id="textarea_copy" cols="30" rows="10"></textarea>
+            <div class="images">
+                <img src="" alt="">
+            </div>
+            <div class="content py-3">
+                <b>...</b>
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="gallery transit">
+        <button id="btn-close" class="btn btn-close zero-shadow toggle-btn"></button>
+        <img src="" alt="">
+    </div>
+
+    <script>
+        let images2 = [
+            
+        ]    
+        images2.forEach((v, k, p) => {
+            let img = document.createElement('img');
+            img.src = v;
+            document.querySelector('.images').appendChild(img);
+        });
+        
+        function showinFooter(title, description, images, location){
+            document.querySelector('.images').innerHTML = '';
+            document.querySelector('footer h5').innerText = title;
+            document.querySelector('footer h5').setAttribute('lng', location.longitude);
+            document.querySelector('footer h5').setAttribute('lat', location.latitude);
+            document.querySelector('footer .content').innerHTML = description;
+            if (images.length == 0) {
+                images = images2;
+            }
+            images.forEach((v, k, p) => {
+                let img = document.createElement('img');
+                img.src = v;
+                document.querySelector('.images').appendChild(img);
+            });
+          }
+    </script>
+
+    <script src="assets/js/maps.js"></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=AvSb9MNVFI9fgxh3S9aCiXzvnmjxwaCY0GGBHnzmTqeHUJVojWodasPjeGIi9VOD' async defer></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="assets/js/db.js"></script>
+    <style>
+        .man{
+            color: #ced4da;
+            color: #bce6ef;
+        }
+    </style>
+    <script>
+        window.onload = function (event) {
+            if(window.location.hash.includes('friend=')){
+                let hash = window.location.hash;
+                let key = hash.replace('#friend=', "");
+                getFriend(key, locateFriend)
+            } else if(window.location.hash.includes('event=')){
+                let hash = window.location.hash;
+                let key = hash.replace('#friend=', "");
+                getFriend(key, locateFriend);
+                let us = "http://127.0.0.1:5500/index.html#lat=-17.78521&lng=31.05311"
+            } else if(window.location.hash.includes('lat=') && window.location.hash.includes('lng=')){
+                let hash = window.location.hash;
+                hash = hash.replace('#', '').replace('lat=', '').replace('lng=', '');
+                let poarr = hash.split('&');
+                document.querySelector('#LocPin').setAttribute('lat', Number(poarr[0]));
+                document.querySelector('#LocPin').setAttribute('lng', Number(poarr[1]));
+                console.log('going to : ' + poarr[0] + '  ' +  poarr[1]);
+                goNow(hash); // I assigned hash to event coz the event parameter is not being used in any way. 
+                
+
+            }
+        }
+
+        on('change', 'input#id_search', (event) => {
+                let valu = event.target.value;
+                if(valu.startsWith('@')){
+                    locateFriend(friends.filter(val => val.data.username == val.replace('@', ''))[0].data);
+                }else if(valu.startsWith('~')){
+                    locateEvent(events.filter(val => val.data.event_name == valu.replace('~', ''))[0].data);
+                }else{
+                    locatePlace(places.filter(val => val.title.trim() == valu)[0]);
+                }
+        });
+        on('click', '.place', (event) => {
+            let val = event.target.querySelector('div > div').innerText;
+            val = val.trim()
+            document.querySelector('input#id_search').value = val;
+        }, true);
+        
+    </script>
+</body>
+</html>

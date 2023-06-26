@@ -1,0 +1,3 @@
+- Marker for a friend. 
+- Marker for Events or Meetings. 
+- User ==> ID, email, phonenumber, username, password, about, department

@@ -1,0 +1,305 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#fff">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FriendlyEats">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header bg-dark d-flex text-white h-75 align-items-center justify-content-center flex-column">
+        <button class="btn btn-menu position-absolute top-0 m-3 bg-transparent" style="right:0px" onclick="document.querySelector('nav').classList.toggle('active');"><i class="bi bi-list text-white fs-2"></i></button>
+        <img src="assets/favicon.png" alt="">
+        <h1 class="text-center mx-4 mb-4">Campus <span>C</span>ompass</h1>
+        <h2 class="text-center mx-4 mb-4 text-muted border-top border-1 border-secondary pt-3">Highfield 1 High</h2>
+        <span>
+            <a href="login.html" class="btn btn-outline-light m-2 px-4">Login</a>
+            <a href="signup.html" class="btn btn-outline-light m-2 px-3">Sign Up</a>
+        </span>
+        
+    </div>
+
+    <div id="about" class="bg-light p-4 py-5">
+        <h2 align="center">About</h2>
+       <p align="justify" class="text-secondary fs-5">
+        This application aims to guide people through Highfield 1 High, from those who would like to know where the Library
+        is, to those who would like to know when and where the next Health Club meeting is being held. Through the use of certain products
+         from Google and Microsft, it has a robust database and authentication structure, thus helping to keep your information private and
+          providing the best user experience. 
+       </p>
+    </div>
+
+    <div id="features" class="bg-white p-4 py-5">
+        <h2 align="center">Features</h2>
+        <div class="cards">
+            <div class="car">
+                <img src="assets/img/icons8_user_location_500px.png" alt="">
+                <div>
+                    <h4 class="text-dark">Locate Friends</h4>
+                    <span>Finding your friend has never been easier! <br>
+                        Find anyone in UZ who has their location turned on. 
+                    </span>
+                </div>
+            </div>
+            <div class="car reverse">
+                <img src="assets/img/icons8_maps_500px.png" alt="">
+                <div>
+                    <h4 class="text-dark">Go Places</h4>
+                    <span>A detailed map with directions for anyplace you want to visit around the campus. 
+                    </span>
+                </div>
+            </div>
+            <div class="car">
+                <img src="assets/img/icons8_reminders_500px.png" alt="">
+                <div>
+                    <h4 class="text-dark">Plan Events</h4>
+                    <span>Set a location for an event, and make it public, such that anyone can see. 
+                    </span>
+                </div>
+            </div>
+            <div class="car reverse">
+                <img src="assets/img/icons8_chat_500px.png" alt="">
+                <div>
+                    <h4 class="text-dark">AI Chat Bot</h4>
+                    <span>
+                        A personal guide through Highfield 1 High. Giving answers to any of your questions. 
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="creators" class="bg-light p-4 py-5">
+        <h2 align="center" class="my-2">Creator</h2>
+        <div class="team mt-3">
+            <div class="team-member">
+                <img class="mx-auto rounded-circle" src="assets/img/profile-tawana.jpg" alt="...">
+                <h4>Tawananyasha Mukoriwo</h4>
+                <p class="text-muted">Software Developer</p>
+                <a class="btn btn-dark btn-social mx-2" href="https://wa.me/263779936807"><i class="bi bi-whatsapp"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="tel:+263779936807"><i class="bi bi-telephone"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="mailto:tawmuks@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+                <a href="tel:+"></a>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="contact" class="bg-white p-4 py-5">
+        <h2 align="center" class="my-2">Contact Us</h2>
+        <input class="form-control my-2" type="text" placeholder="Subject" id="msg-title">
+        <textarea class="form-control" placeholder="Message" name="" id="msg" cols="10" rows="5"></textarea>
+        <button class="btn btn-light mx-0 my-1 px-3 btn-send">Send</button>
+    </div>
+
+    <div id="footer" class="bg-dark p-4 text-white-50">
+        <h4 align="center" class="m-0">Learn | Build | Share</h4>
+        <br>
+        <h4 align="center" class="text-muted fs-6 fw-light"> <a href="https://TawanaState.github.io/" class="text-muted text-decoration-none">TawanaState.github.io</a>  <br> 2023 </h5>
+    </div>
+
+    
+
+
+
+
+    <nav class="transit">
+        <button id="btn-close" class="btn btn-close zero-shadow toggle-btn"></button>
+        <img class="rounded-circle my-2" src="assets/img/user icon.png" alt="">
+        <p class="my-2 d-none">
+            <i id="broadcast-pin" class="bi bi-pen"></i>
+            <i id="broadcast-pin" class="bi bi-geo-alt-fill"></i>
+            <i id="broadcast-pin" class="bi bi-gear"></i>
+        </p>
+        
+        <h3 id="heading_username" class="mt-2 mb-2">Unknown</h3><hr>
+        <a href="/">Developer</a><hr>
+        <a href="about.html">About App</a><hr>
+        <a href="login.html">Logout</a>
+    </nav>
+
+    <script src="assets/js/main.js"></script>
+</body>
+<style>
+    body{
+        overflow-y: auto;
+    }
+    body:has(nav.active){
+        overflow-y: hidden;
+    }
+    #contact{
+        background-image: url(assets/img/campus_compass_bg.png);
+        background-repeat: no-repeat;
+    }
+    .header{
+        background-image: url(assets/img/dark_bg.png);
+        background-repeat: no-repeat;
+        background-position: right;
+        animation: slide 10s ease-out 0.3s 1;
+    }
+    .header > img{
+        animation: show 10s ease-out 0.3s 1;
+    }
+    @keyframes slide{
+        0%{
+            background-position-y: bottom;
+        }
+        90%{
+            background-position-y: top;
+        }
+    }
+    @keyframes show{
+        0%{
+            opacity: 0;
+        }
+        80%{
+            opacity: 0.2;
+        }
+        90%{
+            opacity: 1;
+        }
+    }
+    .circledimg{
+        border-radius: 200px;
+        width: 300px;
+        height:300px;
+    }
+    .btn{
+        background-color: #9494941e;
+        border-color: #a7a5a515;
+        border-style: solid;
+        margin: 7px;
+    }
+    .btn-social {
+        height: 2.5rem;
+        width: 2.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 100%;
+        background-color: #0000004f;
+      }
+      .team-member {
+        margin-bottom: 3rem;
+        text-align: center;
+        margin-inline: 50px;
+      }
+      .team-member img {
+        width: 10rem;
+        height: 10rem;
+        border: 0.5rem solid rgba(0, 0, 0, 0.1);
+      }
+      .team-member p{
+        margin: 0px;
+      }
+      .team-member h4, .team-member .h4 {
+        margin-top: 0.01rem;
+        margin-bottom: 0.2rem;
+    }
+    h1{
+        font-size: 280%;
+    }
+    h1::first-letter{
+        color: var(--bs-warning);
+    }
+    h1 > span:last-child{
+        color: var(--bs-info);
+    }
+    .cards{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        align-items: center;
+    }
+    .cards > .car{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        padding: 5px;
+        margin-block: 20px;
+    }
+    .car.reverse{
+        flex-direction: row-reverse;
+    }
+    .cards > .car div span{
+        color: var(--bs-secondary);
+    }
+    .cards > .car h4{
+        font-weight: 400;
+    }
+    .cards img{
+        max-width: 40vw;
+    }
+    .team{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        justify-content: center;
+    }
+    @media (min-width : 720px) {
+        .cards{
+            padding-inline: 100px;
+        }
+        .cards img{
+            max-width: 25vw;
+        }
+        #about p{
+            padding-inline: 2rem;
+        }
+        .cards > .car h4{
+            font-weight: bold;
+        }
+        .team-member img{
+            width: 14rem;
+            height: 14rem;
+        }
+        #contact{
+            padding-left: 200px!important;
+            padding-right: 200px!important;
+        }
+    }
+    @media (min-width : 1000px) {
+        .cards{
+            padding-inline: 200px;
+        }
+        
+    }
+</style>
+<script>
+    on('click', '.btn-send', event => {
+        if(select('#msg').value !== null){
+            window.location.href = `mailto:tawmuks@gmailcom?subject=${select('#msg-title').value}&body=${select('#msg').value}`;
+            select('#msg-title').value = '';
+            select('#msg').value = '';
+        } else {
+            notify('Please fill in the blank', 'text-danger');
+        }
+    })
+</script>
+</html>

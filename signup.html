@@ -1,0 +1,126 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="assets/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="assets/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Campus Compass">
+  <meta name="theme-color" content="#fff">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Campus Compass">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    
+    <div class="main">
+        <form method="get" onsubmit="formSubmit(event)">
+            <h3>Sign Up</h3>
+            <input required type="email" class="form-control" name="" id="user_email" placeholder="Email Address">
+            <input required type="text" class="form-control" name="" id="user_username" placeholder="Username">
+            <input required type="password" class="form-control" name="" id="user_password" placeholder="Password">
+            <input required type="password" class="form-control" name="" id="user_confirm_password" placeholder="Confirm Password">
+            <p class="text-danger"></p>
+            <button class="btn btn-info">Sign Up</button>
+            <p class="text-muted">Already have an account? <a href="login.html">Login Now!</a> </p>
+        </form>
+
+    </div>
+    <div class="ad bg-dark"></div>
+</body>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0px;
+        padding: 0px;
+    }
+    body > div{
+        height: 100vh;
+        padding: 50px;
+        width: 50vw;
+    }
+    .main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    form{
+        width: 100%;
+    }
+    form > *{
+        margin-block: 10px;
+    }
+    a{
+        text-decoration: none;
+        opacity: 0.7;
+    }
+    .btn-info{
+        color: white;
+    }
+    .ad{
+        background-image: url(assets/img/campus_compass_bg.png);
+        background-position-x: right;
+    }
+    @media (max-width: 768px) {
+        div.ad{
+            display: none;
+        }
+        div.main{
+            width: 100%;
+            background-image: url(assets/img/campus_compass_bg.png);
+            background-position-x: center;
+        }
+    }
+</style>
+
+<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="assets/js/db.js"></script>
+<script>
+    function formSubmit(event){
+        event.preventDefault();
+        if(getVal('#user_password') == getVal('#user_confirm_password')){
+            let returnval = SignUp(getVal('#user_email'), getVal('#user_password'), getVal('#user_username'));
+            
+            if (returnval !== undefined){
+            select('form p.text-danger').innerText = returnval;
+            }
+            
+        } else {
+            notify('Please enter the same password. ', ['text-danger'], select('body > .main'));
+        }
+    }
+    function getVal(query){
+        return document.querySelector(query).value;
+    }
+    function select(query){
+        return document.querySelector(query);
+    }
+</script>
+
+</html>

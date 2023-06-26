@@ -1,0 +1,13 @@
+{
+  "name": "Campus Compass",
+  "short_name": "CampusCompass",
+  "start_url": "https://TawanaState.github.io/CampusCompass/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [{
+  "src": "favicon.png",
+    "sizes": "100x100",
+    "type": "image/png"
+  }],
+  "theme_color": "#fff"
+}
